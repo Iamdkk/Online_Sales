@@ -1,0 +1,49 @@
+mysql> use OnlineSales;
+ERROR 1049 (42000): Unknown database 'onlinesales;'
+mysql> showtables;
+    -> ^C
+mysql> notee;
+    -> ^C
+mysql> notee
+mysql> show tables;
++-----------------------+
+| Tables_in_onlinesales |
++-----------------------+
+| onlinesales           |
++-----------------------+
+1 row in set (0.01 sec)
+
+mysql> describe onlinesales;
++-----------------+-------+------+-----+---------+-------+
+| Field           | Type  | Null | Key | Default | Extra |
++-----------------+-------+------+-----+---------+-------+
+| TransactionID   | int   | YES  |     | NULL    |       |
+| Date            | date  | YES  |     | NULL    |       |
+| ProductCategory | text  | YES  |     | NULL    |       |
+| ProductName     | text  | YES  |     | NULL    |       |
+| UnitsSold       | int   | YES  |     | NULL    |       |
+| UnitPrice       | float | YES  |     | NULL    |       |
+| TotalRevenue    | float | YES  |     | NULL    |       |
+| Region          | text  | YES  |     | NULL    |       |
+| PaymentMethod   | text  | YES  |     | NULL    |       |
++-----------------+-------+------+-----+---------+-------+
+9 rows in set (0.02 sec)
+
+mysql> describe ProductName;
+ERROR 1146 (42S02): Table 'onlinesales.productname' doesn't exist
+mysql> SELECT EXTRACT(YEAR FROM Date) AS year, EXTRACT(MONTH FROM Date) AS month, SUM(TotalRevenue) AS total_revenue, COUNT(DISTINCT TransactionID) AS order_volume FROM OnlineSales WHERE Date BETWEEN '2024-01-01' AND '2024-12-31' GROUP BY EXTRACT(YEAR FROM Date), EXTRACT(MONTH FROM Date) ORDER BY year, month;
++------+-------+--------------------+--------------+
+| year | month | total_revenue      | order_volume |
++------+-------+--------------------+--------------+
+| 2024 |     1 | 14548.319875717163 |           31 |
+| 2024 |     2 | 10803.369953155518 |           29 |
+| 2024 |     3 | 12849.239894866943 |           31 |
+| 2024 |     4 |  12451.68991470337 |           30 |
+| 2024 |     5 |  8455.489954948425 |           31 |
+| 2024 |     6 |  7384.549964904785 |           30 |
+| 2024 |     7 |  6797.079990386963 |           31 |
+| 2024 |     8 |  7278.109984397888 |           27 |
++------+-------+--------------------+--------------+
+8 rows in set (0.01 sec)
+
+mysql> notee
